@@ -104,6 +104,13 @@ class MonitorFfs {
     unique_fd mEventFd;
     // Pools on mInotifyFd and mEventFd.
     unique_fd mEpollFd;
+    // Optional, immutable device configuration. This never authorizes a bind:
+    // the kernel remains the final authority for every connection.
+    const string mPullupPolicyPath;
+    unique_fd mPullupPolicyFd;
+    bool initializePullupPolicy();
+    bool pullupAllowed();
+    bool tryPullup();
     vector<int> mWatchFd;
 
     // Maintains the list of Endpoints.
